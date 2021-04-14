@@ -32,8 +32,8 @@ class UserDetailsFragment : BaseFragment<UserDetailsViewModel, UserDetailsView>(
                 user = it
             } ?: run {
                 it.showErrorSnackbar(getString(R.string.generic_error))
-                runDelayed(1200) {
-                    parentFragmentManager.popBackStack()
+                runDelayed(1500) {
+                    super.onBackPressed()
                 }
             }
 
@@ -79,6 +79,6 @@ class UserDetailsFragment : BaseFragment<UserDetailsViewModel, UserDetailsView>(
     // UserDetailsViewDelegate
 
     override fun onViewBackPressed() {
-
+        super.onBackPressed()
     }
 }

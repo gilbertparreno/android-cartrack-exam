@@ -1,5 +1,6 @@
 package com.gilbertparreno.cartrack.main.entities
 
+import com.google.android.gms.maps.model.LatLng
 import java.io.Serializable
 
 data class User(
@@ -10,5 +11,6 @@ data class User(
     val address: String,
     val company: String,
     val website: String,
-    val phone: String
+    val phone: String,
+    val latLng: LatLng
 ) : Serializable

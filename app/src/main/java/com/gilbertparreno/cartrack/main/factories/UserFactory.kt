@@ -19,7 +19,8 @@ object UserFactory {
                 address = address,
                 company = it.company.name,
                 website = it.website,
-                phone = it.phone
+                phone = it.phone,
+                latLng = it.address.latLng
             )
         }
     }

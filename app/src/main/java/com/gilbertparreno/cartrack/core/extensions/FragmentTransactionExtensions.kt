@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.gilbertparreno.cartrack.R
 import java.util.*
 
 fun FragmentTransaction.addFragment(
@@ -16,6 +17,12 @@ fun FragmentTransaction.addFragment(
     if (addToBackStack) {
         this.addToBackStack(tag)
     }
+    setCustomAnimations(
+        R.anim.slide_in,
+        R.anim.fade_out,
+        R.anim.fade_in,
+        R.anim.slide_out
+    )
     return this.add(
         containerId,
         fragmentClass,

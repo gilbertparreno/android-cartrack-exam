@@ -1,5 +1,6 @@
 package com.gilbertparreno.cartrack.core.networking.entities
 
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.SerializedName
 
 data class UserApi(
@@ -16,14 +17,9 @@ data class UserApi(
         val street: String,
         val suite: String,
         val city: String,
-        @SerializedName("zipcode") val zipCode: String,
-        @SerializedName("geo") val location: Location
-    ) {
-        data class Location(
-            @SerializedName("lat") private val latitude: Float,
-            @SerializedName("lng") private val longitude: Float
-        )
-    }
+        @SerializedName("geo") val latLng: LatLng,
+        @SerializedName("zipcode") val zipCode: String
+    )
 
     data class Company(
         val name: String,

@@ -1,6 +1,7 @@
 package com.gilbertparreno.cartrack.core.networking.di
 
-import com.gilbertparreno.cartrack.core.networking.serializers.StringDeserializer
+import com.gilbertparreno.cartrack.core.networking.serializers.LatLngDeserializer
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -9,6 +10,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module(includes = [UserServiceModule::class])
@@ -27,6 +29,15 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
+        OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor()
+                .also {
+                    it.level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
+            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .build()
         return OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor().also {
@@ -40,7 +51,7 @@ class NetworkModule {
     @Singleton
     fun provideGson(): Gson {
         return GsonBuilder()
-            .registerTypeAdapter(String::class.java, StringDeserializer())
+            .registerTypeAdapter(LatLng::class.java, LatLngDeserializer())
             .create()
     }
 }
