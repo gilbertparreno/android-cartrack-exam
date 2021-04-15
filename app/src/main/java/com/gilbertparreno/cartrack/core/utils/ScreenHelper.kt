@@ -4,9 +4,6 @@ import android.content.res.Resources
 
 object ScreenHelper {
 
-    private var screenWidth: Int = 0
-    private var screenHeight: Int = 0
-
     fun getStatusBarHeightFromAndroid(): Int {
         var statusBarHeight = 0
         val resourceId =

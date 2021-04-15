@@ -31,13 +31,16 @@ class MainFragment : BaseFragment<MainViewModel, MainView>(), MainViewDelegate {
     override fun observerChanges() {
         viewModel.usersStatus.observe(this) {
             when (it) {
+                is TaskStatus.Loading -> {
+                    contentView.showSwipeRefreshProgress()
+                }
                 is TaskStatus.SuccessWithResult -> {
                     contentView.setItems(it.result)
+                    contentView.hideSwipeRefreshProgress()
                 }
                 is TaskStatus.Failure -> {
-                    contentView.showErrorSnackbar(
-                        it.error.message ?: getString(R.string.unknown_error)
-                    )
+                    contentView.showErrorSnackbar(it.error.message ?: getString(R.string.unknown_error))
+                    contentView.hideSwipeRefreshProgress()
                 }
             }
         }
@@ -52,5 +55,9 @@ class MainFragment : BaseFragment<MainViewModel, MainView>(), MainViewDelegate {
             bundle = Bundle().also { it.putSerializable("user_details", user) },
             addToBackStack = true
         ).commit()
+    }
+
+    override fun onSwipeRefreshed() {
+        viewModel.getUsers()
     }
 }

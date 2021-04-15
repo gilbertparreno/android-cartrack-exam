@@ -17,13 +17,16 @@ class MainViewModel @Inject constructor(
     val usersStatus = SingleLiveEvent<TaskStatus<List<User>>>()
 
     fun getUsers() {
-        viewModelScope.launch(work = {
-            val usersApi = userRepository.getUsers()
-            UserFactory.createUserFromUserApiList(usersApi)
-        }, onSuccess = {
-            usersStatus.value = TaskStatus.success(it)
-        }, onFailure = {
-            usersStatus.value = TaskStatus.error(it)
-        })
+        viewModelScope.launch(
+            work = {
+                usersStatus.postValue(TaskStatus.loading())
+                val usersApi = userRepository.getUsers()
+                UserFactory.createUserFromUserApiList(usersApi)
+            }, onSuccess = {
+                usersStatus.value = TaskStatus.success(it)
+            }, onFailure = {
+                usersStatus.value = TaskStatus.error(it)
+            }
+        )
     }
 }

@@ -54,18 +54,16 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.33'
     kapt 'com.google.dagger:dagger-compiler:2.33'
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
 
     implementation 'androidx.lifecycle:lifecycle-common:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'android.arch.lifecycle:extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
 
-    implementation 'io.coil-kt:coil:1.1.1'
-
-    implementation 'com.github.giswangsj:AndRatingBar:1.0.5'
-
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

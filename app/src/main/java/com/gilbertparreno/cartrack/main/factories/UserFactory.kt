@@ -10,7 +10,7 @@ object UserFactory {
                 it.address.street,
                 it.address.city,
                 it.address.zipCode
-            ).joinToString(" ")
+            ).joinToString(", ")
             User(
                 id = it.id,
                 name = it.name,

@@ -8,6 +8,5 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(
     private val userService: UserService
 ) {
-
     suspend fun getUsers() = userService.getUsers()
 }

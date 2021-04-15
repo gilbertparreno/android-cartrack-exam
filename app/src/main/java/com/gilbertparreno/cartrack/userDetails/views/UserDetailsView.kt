@@ -10,8 +10,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.item_user.view.address
 import kotlinx.android.synthetic.main.item_user.view.email
-import kotlinx.android.synthetic.main.item_user.view.name
-import kotlinx.android.synthetic.main.item_user.view.username
 import kotlinx.android.synthetic.main.item_user.view.website
 import kotlinx.android.synthetic.main.view_app_bar.view.*
 import kotlinx.android.synthetic.main.view_user_details.view.*
@@ -42,8 +40,7 @@ class UserDetailsView(context: Context) : BaseFragmentView(context) {
 
     fun setUserDetails(user: User) {
         this.user = user
-        name.text = user.name
-        username.text = user.username
+        toolbar.title = user.name
         email.text = user.email
         address.text = user.address
         website.text = user.website
