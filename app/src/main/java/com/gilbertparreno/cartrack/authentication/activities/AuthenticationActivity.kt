@@ -1,13 +1,13 @@
-package com.gilbertparreno.cartrack.main.activities
+package com.gilbertparreno.cartrack.authentication.activities
 
 import android.os.Bundle
 import com.gilbertparreno.cartrack.R
+import com.gilbertparreno.cartrack.authentication.fragments.LoginFragment
 import com.gilbertparreno.cartrack.core.base.BaseActivity
 import com.gilbertparreno.cartrack.core.extensions.addFragment
 import com.gilbertparreno.cartrack.core.extensions.getFragmentTag
-import com.gilbertparreno.cartrack.main.fragments.MainFragment
 
-class MainActivity : BaseActivity(R.layout.activity_main) {
+class AuthenticationActivity : BaseActivity(R.layout.activity_authentication) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,12 +15,12 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
             supportFragmentManager.apply {
                 beginTransaction()
                     .addFragment(
-                        containerId = R.id.mainContainer,
-                        fragmentClass = MainFragment::class.java,
+                        containerId = R.id.loginContainer,
+                        fragmentClass = LoginFragment::class.java,
                         addToBackStack = false
                     ).commit()
             }
-            rootFragmentTag = getFragmentTag(MainFragment::class.java)
+            rootFragmentTag = getFragmentTag(LoginFragment::class.java)
         }
     }
 }

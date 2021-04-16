@@ -1,12 +1,10 @@
 package com.gilbertparreno.cartrack
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import com.gilbertparreno.cartrack.core.security.Encryption
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,9 +14,11 @@ import org.junit.Assert.*
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.gilbertparreno.cartrack", appContext.packageName)
+    fun encryption() {
+        val masterPassword = "masterPassword".toCharArray()
+        val map = Encryption.encrypt("admin1234".toByteArray(Charsets.UTF_8), masterPassword)
+        val decryptedByteArray = Encryption.decrypt(map, masterPassword)
+        val decryptedPassword = String(decryptedByteArray!!, Charsets.UTF_8)
+        assertEquals("admin1234", decryptedPassword)
     }
 }

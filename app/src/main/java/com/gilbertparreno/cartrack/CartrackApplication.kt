@@ -1,7 +1,10 @@
 package com.gilbertparreno.cartrack
 
 import android.app.Application
+import android.util.Base64
+import com.gilbertparreno.cartrack.core.security.Encryption
 import com.gilbertparreno.cartrack.core.di.AppComponent
+import com.gilbertparreno.cartrack.core.di.AppModule
 import com.gilbertparreno.cartrack.core.di.DaggerAppComponent
 import com.gilbertparreno.cartrack.core.extensions.launch
 import com.gilbertparreno.cartrack.core.extensions.logError
@@ -10,7 +13,6 @@ import com.gilbertparreno.cartrack.core.networking.di.NetworkModule
 import com.gilbertparreno.cartrack.core.room.daos.UserDao
 import com.gilbertparreno.cartrack.core.room.di.RoomModule
 import com.gilbertparreno.cartrack.core.room.entities.User
-import com.gilbertparreno.cartrack.core.utils.security.Crypto
 import kotlinx.coroutines.GlobalScope
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,6 +30,7 @@ class CartrackApplication : Application() {
         Timber.plant(Timber.DebugTree())
 
         appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
             .networkModule(NetworkModule())
             .roomModule(RoomModule(this))
             .build()
@@ -48,13 +51,16 @@ class CartrackApplication : Application() {
                         Pair("user2@gmail.com", "user2P@ssword"),
                         Pair("user3@gmail.com", "user3P@ssword")
                     ).forEach {
-                        val map = Crypto.encrypt(it.second)
+                        val map = Encryption.encrypt(
+                            it.second.toByteArray(Charsets.UTF_8),
+                            BuildConfig.MASTER_PASSWORD.toCharArray()
+                        )
                         userDao.insertUsers(
                             User(
                                 email = it.first,
-                                passwordSalt = map["salt"]!!,
-                                passwordIv = map["iv"]!!,
-                                passwordEncrypted = map["encrypted"]!!
+                                passwordSalt = Base64.encodeToString(map["salt"], Base64.NO_WRAP),
+                                passwordIv = Base64.encodeToString(map["iv"], Base64.NO_WRAP),
+                                passwordEncrypted = Base64.encodeToString(map["encrypted"], Base64.NO_WRAP)
                             )
                         )
                     }

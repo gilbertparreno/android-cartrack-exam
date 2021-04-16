@@ -1,6 +1,7 @@
 package com.gilbertparreno.cartrack.core.di
 
 import com.gilbertparreno.cartrack.CartrackApplication
+import com.gilbertparreno.cartrack.authentication.fragments.LoginFragment
 import com.gilbertparreno.cartrack.core.networking.di.NetworkModule
 import com.gilbertparreno.cartrack.core.room.di.RoomModule
 import com.gilbertparreno.cartrack.main.fragments.MainFragment
@@ -8,7 +9,7 @@ import com.gilbertparreno.cartrack.userDetails.fragments.UserDetailsFragment
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [NetworkModule::class, RoomModule::class])
+@Component(modules = [AppModule::class, NetworkModule::class, RoomModule::class])
 @Singleton
 interface AppComponent {
 
@@ -16,4 +17,5 @@ interface AppComponent {
 
     fun inject(mainFragment: MainFragment)
     fun inject(userDetailsFragment: UserDetailsFragment)
+    fun inject(loginFragment: LoginFragment)
 }
