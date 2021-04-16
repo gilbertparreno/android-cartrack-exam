@@ -1,17 +1,19 @@
 package com.gilbertparreno.cartrack.core.extensions
 
+import com.gilbertparreno.cartrack.core.providers.CoroutineContextProvider
 import kotlinx.coroutines.*
 
 fun <R> CoroutineScope.launch(
+    coroutineContextProvider: CoroutineContextProvider,
     work: suspend CoroutineScope.() -> R,
     onSuccess: (R) -> Unit,
     onFailure: (error: Throwable) -> Unit
 ) {
-    launch(Dispatchers.IO) {
+    launch(coroutineContextProvider.IO) {
         runCatching {
             work()
         }.also { result ->
-            launch(Dispatchers.Main) {
+            launch(coroutineContextProvider.Main) {
                 result.onSuccess {
                     onSuccess(it)
                 }.onFailure {

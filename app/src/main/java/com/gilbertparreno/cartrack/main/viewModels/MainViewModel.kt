@@ -6,18 +6,21 @@ import com.gilbertparreno.cartrack.core.extensions.SingleLiveEvent
 import com.gilbertparreno.cartrack.core.extensions.launch
 import com.gilbertparreno.cartrack.core.networking.repositories.UserRepository
 import com.gilbertparreno.cartrack.core.networking.taskStatus.TaskStatus
+import com.gilbertparreno.cartrack.core.providers.CoroutineContextProvider
 import com.gilbertparreno.cartrack.main.entities.User
 import com.gilbertparreno.cartrack.main.factories.UserFactory
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val coroutineContextProvider: CoroutineContextProvider
 ) : ViewModel() {
 
     val usersStatus = SingleLiveEvent<TaskStatus<List<User>>>()
 
     fun getUsers() {
         viewModelScope.launch(
+            coroutineContextProvider = coroutineContextProvider,
             work = {
                 usersStatus.postValue(TaskStatus.loading())
                 val usersApi = userRepository.getUsers()

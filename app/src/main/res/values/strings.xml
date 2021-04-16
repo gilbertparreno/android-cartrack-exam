@@ -4,4 +4,10 @@
     <string name="unknown_error">Unknown error</string>
     <string name="generic_error">Oops! Something went wrong</string>
     <string name="empty_user_list_description">No users found.\nTry to swipe down to refresh the list.</string>
+    <string name="window_login_title">Login</string>
+    <string name="continue_label">Continue</string>
+    <string name="fields_empty_error">Make sure that all fields are filled.</string>
+    <string name="login_failed_error">Login failed.</string>
+    <string name="email_hint">Email address…</string>
+    <string name="password_hint">Password…</string>
 </resources>

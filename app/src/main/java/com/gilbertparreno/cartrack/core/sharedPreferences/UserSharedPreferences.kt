@@ -31,4 +31,6 @@ class UserSharedPreferences @Inject constructor(
         this.email = email
         this.userId = userId
     }
+
+    fun isLogged() = userId != -1
 }
